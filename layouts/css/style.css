@@ -1,0 +1,30 @@
+
+.About {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+.About .contebtBx{
+  background: #162c3b;
+  padding: 100px;
+  width: 50%;
+}
+.heading{
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.AboutText{
+  color: #fff;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+.About .imageBx{
+  background: url("/img/5.jpg");
+  width: 50%;
+  background-size:cover;
+  background-position: center;
+}
