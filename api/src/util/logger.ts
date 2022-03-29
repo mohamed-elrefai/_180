@@ -1,0 +1,11 @@
+import Logger from "pino";
+import dayjs from "dayjs";
+
+const log = Logger({
+    prettyPrint: true,
+    base: {
+        pid: false
+    },
+    timestamp: () => `,"time":"${dayjs()}"`
+})
+export default log;
