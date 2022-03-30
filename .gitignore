@@ -5,7 +5,7 @@ npm-debug.log
 package-lock.json
 tailwind.config.js
 images
-dotenv.ts
+config
 # Env
 .env
 .env.local
