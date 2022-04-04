@@ -1,25 +1,28 @@
-import { Schema, model } from 'mongoose';
+import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
+import { nanoid } from 'nanoid';
 
-const newUser = new Schema({
-    username: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true,
-        min: 500
-    },
-    ProfileImage: {
-        type: String,
-        default: ""
+
+@modelOptions({
+    schemaOptions: {
+        timestamps: true
     }
-}, {timestamps: true})
+})
+class User{
 
-const user = model('User', newUser);
+    @prop({required: true, default: () => nanoid()})
+    userIdToken: string
 
-export default user;
+    @prop({ required: true })
+    username: string
+
+    @prop({ required: true, unique: true })
+    email: string
+
+    @prop({ required: true, min: 6 })
+    password: string
+
+    @prop({ default:"" })
+    image: String
+}
+const Users = getModelForClass(User)
+export default Users;

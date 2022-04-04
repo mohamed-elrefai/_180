@@ -3,6 +3,9 @@ import mongo, { ConnectOptions } from 'mongoose';
 import logger from './util/logger'
 import dotenv from './config/dotenv';
 import middleware from './middleware/middleware';
+import Auth from './router/Auth.routes'
+import product from './router/Products.routes';
+import user from './router/User.routes'
 const app: Application = express();
 
 const Port: Number = dotenv.port;
@@ -21,3 +24,6 @@ mongo.connect(MongoDB, { useNewUrlParser: true ,useUnifiedTopology: true } as Co
 middleware(app);
 
 // Router
+app.use(Auth)
+app.use(product);
+app.use(user)
