@@ -35,6 +35,7 @@ router.post('/Api/Register', async (req, res) => {
 router.post('/Api/Login', async (req, res) => {
     try{
         const { email, password } = req.body;
+
         const user = await User.findOne({ email });
         if(!user) return res.status(403).json({msg: "user email not founded"});
 
@@ -42,10 +43,10 @@ router.post('/Api/Login', async (req, res) => {
         if(!verifyPassword) return res.status(403).json({msg: "user password not founded"});
 
         if(user && verifyPassword){
+            // Creat Token
             const token = CreateTokenUserIdAndEmail(user.id, email);
             // save user token
             user.token = token;
-
             // user
             res.status(200).json(user);
         }
@@ -53,5 +54,4 @@ router.post('/Api/Login', async (req, res) => {
         res.status(500).json(err)
     }
 })
-
 module.exports = router
