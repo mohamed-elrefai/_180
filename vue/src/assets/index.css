@@ -5,6 +5,13 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+
+/* Colors */
+:root{
+    --a: #e91e63;
+    --a2:#03a9f4;
+}
+
 .app {
     position: relative;
     width: 100%;
@@ -24,7 +31,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: linear-gradient(255deg, #e91e63, #03a9f4);
+    background: linear-gradient(255deg, var(--a), var(--a2));
     z-index: 1;
     mix-blend-mode: screen
 } 

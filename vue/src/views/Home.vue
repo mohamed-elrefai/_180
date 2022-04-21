@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-  {{user.username}}
+    <div v-if="user">
+      {{ user.username }}
+    </div>
+    <div v-else>
+      <router-link to="/signin">Login</router-link>
+    </div>
   </div>
 </template>
 

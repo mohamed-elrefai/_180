@@ -56,7 +56,3 @@ import axios from 'axios'
         },
     }
 </script>
-
-<style>
-
-</style>
