@@ -16,9 +16,9 @@ const userSchema = new Schema({
         min: 6,
         max: 100
     },
-    image: {
+    profilePics: {
         type: String,
-        default: "1.jpg"
+        default: ""
     },
     token: {
         type: String

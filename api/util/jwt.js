@@ -2,8 +2,8 @@ const JWT = require('jsonwebtoken');
 
 const maxAge = 3 * 24 * 60 * 60;
 
-const CreateTokenUserIdAndEmail = (id, email) => {
-    return JWT.sign({id, email}, 'secret', {expiresIn: maxAge})
+const CreateTokenUserIdAndEmail = (id, email, username, profileImages) => {
+    return JWT.sign({id, email, profileImages, username}, 'secret', {expiresIn: maxAge})
 }
 
 const CreateCookieByUsername = ( username ) => {
@@ -12,4 +12,4 @@ const CreateCookieByUsername = ( username ) => {
 
 
 
-module.exports = {CreateTokenUserIdAndEmail, CreateCookieByUsername};
+module.exports = {CreateTokenUserIdAndEmail, CreateCookieByUsername, maxAge};

@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
     }
     try {
         const decoded = JWT.verify(token, 'secret');
-        
+        // Get user data
         req.user = decoded;
     } catch (err) {
         return res.status(401).send("Invalid Token");

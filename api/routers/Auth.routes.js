@@ -1,19 +1,24 @@
 const router = require('express').Router();
 const { hash, compare, genSalt } = require('bcrypt');
-const { CreateTokenUserIdAndEmail, CreateCookieByUsername, verifyToken } = require('../util/jwt');
+const { CreateTokenUserIdAndEmail, CreateCookieByUsername, maxAge } = require('../util/jwt');
 const User = require('../model/User.Model');
+const multer = require('../util/multer');
+const cloudinary = require('../util/Upload');
+
 // Register
-router.post('/Api/Register', async (req, res) => {
+router.post('/Api/Register', multer.single('img'),async (req, res) => {
     try{
         const { username, email } = req.body;
+        const image = await cloudinary.uploader.upload(req.file.path);
+        const profilePics = image.url
         // Hash password
         const salt = await genSalt(10);
         const hashPassword = await hash(req.body.password, salt);
         const password = hashPassword;
 
         // insert data
-        const user = await User.create({username, email, password});
-        
+        const user = await new User({username, email, password, profilePics});
+        const newUser = await user.save();
         // Creat Token
         const token = CreateTokenUserIdAndEmail(user.id, user.email);
         // Save token in database
@@ -21,7 +26,7 @@ router.post('/Api/Register', async (req, res) => {
 
         // Create cookie by username
         const tokenCreate = CreateCookieByUsername(user.username);
-        res.cookie('__Sett', tokenCreate, {httpOnly: true}); // cookie about user => ( username )
+        res.cookie('__Sett', tokenCreate, {httpOnly: true, maxAge: maxAge * 1000}); // cookie about user => ( username )
         res.cookie('__LUX', token, {httpOnly: true}); // Cookie about user => ( id && email )
 
         res.status(200).json(user)
